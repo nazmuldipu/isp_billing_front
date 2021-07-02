@@ -1,24 +1,25 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import { Redirect, Route, Switch } from 'react-router';
+
+import HomePage from './containers/homePage';
+import LoginPage from './features/auth/loginPage'
+import NotFound from './containers/notFound';
+import RegistrationPage from './features/auth/registrationPage';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <Switch>
+        <Route path="/login" component={LoginPage} />
+        <Route path="/register" component={RegistrationPage} />
+        <Route path="/not-found" component={NotFound} />
+        <Route exact path="/" component={HomePage} />
+        <Redirect to="/not-found" />
+      </Switch>
+    </React.Fragment>
   );
 }
 
