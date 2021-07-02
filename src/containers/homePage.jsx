@@ -24,7 +24,7 @@ const HomePage = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="relative">
+                    <div className="md:relative">
                         <svg
                             className="hidden text-white absolute top-0 -left-24 w-48 lg:block inset-y-0 h-56 sm:h-72 md:h-96 lg:h-full ransform translate-x-1/2"
                             fill="currentColor"
