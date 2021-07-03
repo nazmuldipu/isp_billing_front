@@ -46,7 +46,6 @@ const RegistrationPage = () => {
                             <div className="mt-4">
                                 <div className="flex justify-between">
                                     <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="loggingPassword">Password</label>
-                                    <Link to="/forgot-password" className="text-xs text-gray-500 dark:text-gray-300 hover:underline"> Forget Password?</Link>
                                 </div>
 
                                 <input id="loggingPassword" className="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" type="password" />
@@ -54,13 +53,13 @@ const RegistrationPage = () => {
 
                             <div className="mt-8">
                                 <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
-                                    Login
+                                    Register
                                 </button>
                             </div>
                         </form>
                         <div className="flex items-center justify-between mt-4">
                             <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
-                            <Link to="/register" className="text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline"> or sign up </Link>
+                            <Link to="/login" className="text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline"> or sign in </Link>
 
                             <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
                         </div>
