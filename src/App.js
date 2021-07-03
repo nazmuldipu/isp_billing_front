@@ -7,12 +7,13 @@ import HomePage from './containers/homePage';
 import LoginPage from './features/auth/loginPage'
 import NotFound from './containers/notFound';
 import RegistrationPage from './features/auth/registrationPage';
-
+import DashboardRouter from './containers/dashboard/routes';
 
 function App() {
   return (
     <React.Fragment>
       <Switch>
+        <Route path="/dashboard" component={DashboardRouter} />
         <Route path="/login" component={LoginPage} />
         <Route path="/register" component={RegistrationPage} />
         <Route path="/not-found" component={NotFound} />
