@@ -91,7 +91,7 @@ const Navbar = () => {
                                     <span className="sr-only">Workflow</span>
                                     <img
                                         className="h-8 w-auto sm:h-10"
-                                        src="logo.svg"
+                                        src="logo_large.svg"
                                         alt=""
                                     />
                                 </a>
