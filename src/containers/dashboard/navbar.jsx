@@ -4,6 +4,9 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { Link } from "react-router-dom";
+import { loggedOut } from "../../features/auth/authSlice";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const navigation = [
     { name: 'Home', href: '/', current: false },
@@ -18,6 +21,14 @@ function classNames(...classes) {
 }
 
 const Navbar = () => {
+    const history = useHistory();
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+        dispatch(loggedOut());
+        history.push("/login");
+    };
+
     return (
         <Disclosure as="nav" className="bg-gray-100">
             {({ open }) => (
@@ -55,7 +66,7 @@ const Navbar = () => {
                                                 item.current ? 'bg-gray-900 text-white' : 'text-gray-500 hover:bg-gray-700 hover:text-white',
                                                 'px-3 py-2 rounded-md text-sm font-medium'
                                             )} aria-current={item.current ? 'page' : undefined}> {item.name} </Link>
-                                        ))} 
+                                        ))}
                                     </div>
                                 </div>
                             </div>
@@ -121,15 +132,12 @@ const Navbar = () => {
                                                     </Menu.Item>
                                                     <Menu.Item>
                                                         {({ active }) => (
-                                                            <a
-                                                                href="/dashboard"
-                                                                className={classNames(
-                                                                    active ? 'bg-gray-100' : '',
-                                                                    'block px-4 py-2 text-sm text-gray-700'
-                                                                )}
-                                                            >
+                                                            <div onClick={handleLogout} className={classNames(
+                                                                active ? 'bg-gray-100' : '',
+                                                                'block px-4 py-2 text-sm text-gray-700'
+                                                            )}>
                                                                 Sign out
-                                                            </a>
+                                                            </div>
                                                         )}
                                                     </Menu.Item>
                                                 </Menu.Items>
