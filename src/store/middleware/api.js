@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as actions from '../api';
 
-
+console.log(process.env.REACT_APP_API_URL)
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 export const setToken = (token) => {
     axios.defaults.headers.common["x-auth-token"] = token;
@@ -30,6 +30,7 @@ const api = ({ dispatch }) => next => async action => {
         //General 
         dispatch(actions.apiCallSuccess(response.data));
     } catch (error) {
+        console.log(error);
         if (onError)
             dispatch({ type: onError, payload: error.response.data });
 

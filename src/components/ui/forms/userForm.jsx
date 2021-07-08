@@ -4,6 +4,7 @@ import Input from "./input";
 import Select from "./select";
 import CheckBox from "./checkBox";
 import TextArea from "./textArea";
+import Button from './button';
 
 const useForm = ({ schema }) => {
     const [data, setData] = useState({});
@@ -139,11 +140,9 @@ const useForm = ({ schema }) => {
         );
     };
 
-    const renderButton = (label, classNmae = "btn btn-sm btn-primary") => {
+    const renderButton = (label, btnType = 'primary', className = '', loading = false) => {
         return (
-            <React.Fragment>
-                <button className={classNmae}>{label}</button>
-            </React.Fragment>
+            <Button label={label} btnType={btnType} className={className} loading={loading} />
         );
     };
 

@@ -10,42 +10,59 @@ const slice = createSlice({
     initialState: {
         token: "",
         error: "",
-        loading: false
+        loading: false,
+        registered: false
     },
     reducers: {
         loggedIn: (auth, action) => {
+            auth.loading = false;
             auth.error = "";
             auth.token = action.payload.token;
             setToken(action.payload.token);
             localStorage.setItem(tokenKey, auth.token);
         },
+        registered: (auth, action)=>{
+            auth.loading = false;
+            auth.registered = true;
+        }, 
         loggedOut: (auth, action) => {
             auth.token = "";
             auth.error = "";
             setToken("");
             localStorage.removeItem(tokenKey);
         },
-        logRequested: (auth, action) => {
+        apiRequested: (auth, action) => {
+            auth.error = "";
             auth.loading = true;
         },
-        logRequestFailed: (auth, action) => {
+        apiRequestFailed: (auth, action) => {
             auth.loading = false;
             auth.error = action.payload;
         },
     }
 })
 
-export const { loggedIn, loggedOut, logRequested, logRequestFailed } = slice.actions;
+export const { loggedIn, registered, loggedOut, apiRequested, apiRequestFailed } = slice.actions;
 
 //Action creators
 const url = "/auth";
+const regUrl = '/users';
 export const login = (credential) => apiCallBegan({
     url,
     method: 'post',
     data: credential,
-    onStart: logRequested.type,
+    onStart: apiRequested.type,
     onSuccess: loggedIn.type,
-    onError: logRequestFailed.type
+    onError: apiRequestFailed.type
+})
+
+export const register = (data) => apiCallBegan({
+    url: regUrl,
+    method: 'post',
+    data,
+    onStart: apiRequested.type,
+    onSuccess: registered.type,
+    onError: apiRequestFailed.type
 })
 
 export const getToken = (dispatch, state) => {
