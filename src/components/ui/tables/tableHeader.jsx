@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { sortChanged, searched } from "../../store/paginateSlice";
+import { sortChanged, searched } from "../../../store/paginateSlice";
 
 const TableHeader = ({ tableName, columns }) => {
   const [sort, setSort] = useState("name");

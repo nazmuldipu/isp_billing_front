@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { limitchanged, pageChanged } from "../../store/paginateSlice";
+import { limitchanged, pageChanged } from "../../../store/paginateSlice";
 
 const TableFotter = ({ data, columns }) => {
   const dispatch = useDispatch();
