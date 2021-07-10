@@ -2,6 +2,7 @@ import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import RoleRoute from "../../services/roleRoutes";
 import UsersRoutes from "../../features/users/routes";
+import CompanyRoutes from "../../features/companies/routes";
 
 import DashboardIndex from ".";
 import Navbar from "./navbar";
@@ -27,7 +28,10 @@ const DashboardRouter = () => {
                     <ul className="border rounded-md">
                         {sideBar.map(menu => (
                             <li key={menu.path} className="text-sm cursor-pointer border-t">
-                                <Link className={`grid grid-flow-col auto-cols-max p-2  ${location.pathname === menu.path ? 'bg-white border-l-4 border-red-700' : "bg-gray-100"}`} to={menu.path} >{menu.icon && <SVGIcons classNames="w-5" name={menu.icon} />} <span className="pl-2 h-5"> {menu.label}</span> </Link>
+                                <Link className={`grid grid-flow-col auto-cols-max p-2  ${location.pathname === menu.path ? 'bg-white border-l-4 border-red-700' : "bg-gray-100"}`} 
+                                    to={menu.path} >{menu.icon && <SVGIcons classNames="w-5" name={menu.icon} />} 
+                                    <span className="pl-2 h-5"> {menu.label}</span> 
+                                </Link>
                             </li>
                         ))}
                     </ul>
@@ -35,6 +39,7 @@ const DashboardRouter = () => {
                 <div className="w-full">
                     <Switch>
                         <RoleRoute path="/dashboard/users" component={UsersRoutes} roles={["ADMIN"]} />
+                        <RoleRoute path="/dashboard/companies" component={CompanyRoutes} roles={["ADMIN"]} />
                         <Route exact path="/dashboard" component={DashboardIndex} />
                         <Redirect to="/not-found" />
                     </Switch>

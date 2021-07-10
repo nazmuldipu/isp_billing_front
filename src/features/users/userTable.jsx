@@ -12,7 +12,7 @@ const UserTable = ({ userPage, select }) => {
       className: "text-end",
       content: (user) => (
         <button
-          className="btn btn-sm btn-outline-success"
+          className="text-indigo-500 bg-gray-100 px-2 rounded-md shadow-sm"
           onClick={() => select(user)}
         >
           Edit

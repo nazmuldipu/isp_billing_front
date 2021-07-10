@@ -1,34 +1,32 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import Joi from "joi-browser";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useForm from "../../components/ui/forms/useForm";
 import Button from "../../components/ui/forms/button";
-// import { loadCompanies } from "./../companies/companiesSlice";
+import { loadCompanies } from "./../companies/companiesSlice";
 
 const AssignUserForm = ({ user, onSubmit, onClear, onRemove }) => {
-  // const dispatch = useDispatch();
-  // const companyPage = useSelector((state) => state.entities.companies.page);
-  // const paginate = useSelector((state) => state.pagination);
+  const dispatch = useDispatch();
+  const companyPage = useSelector((state) => state.entities.companies.page);
 
   useEffect(() => {
-    // dispatch(
-    //   loadCompanies({
-    //     page: 1,
-    //     limit: 100,
-    //     sort: "name",
-    //     order: "asc",
-    //     param: "",
-    //   })
-    // );
+    dispatch(
+      loadCompanies({
+        page: 1,
+        limit: 100,
+        sort: "name",
+        order: "asc",
+        param: "",
+      })
+    );
   }, []);
 
   const schema = {
     companyId: Joi.string().min(5).required().label("Company"),
   };
 
-  // const { data, renderSelect, renderButton, validateSubmit } = useForm({
-  const { data, renderButton, validateSubmit } = useForm({
+  const { data, renderSelect, renderButton, validateSubmit } = useForm({
     schema,
   });
 
@@ -54,15 +52,15 @@ const AssignUserForm = ({ user, onSubmit, onClear, onRemove }) => {
           </div>
 
           {/* TODO: change following select form component to type ahed component */}
-          {/* {companyPage.docs
+          {companyPage.docs
             ? renderSelect("companyId", "Company", companyPage.docs)
-            : ""} */}
+            : ""}
 
           <div className="flex flex-row-reverse mt-4">
             {renderButton("Change")}
             <Button label="Remove Company" btnBase="danger" className="mx-2" onClick={onRemove} />
             <Button label="Clear" btnBase="danger" onClick={onClear} />
-          </div>          
+          </div>
         </form>
       </div>
     </div>
