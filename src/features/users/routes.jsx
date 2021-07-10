@@ -1,14 +1,28 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import UsersIndex from "./index";
-import UserNavbar from "./navbar";
 import AssignUser from "./assignUser";
 import ChangePassword from './changePassword';
+import SubNavbar from "../../components/subNavbar";
+
+const menus = [
+  { path: "/dashboard/users", icon: "list", label: "List" },
+  {
+      path: "/dashboard/users/assign",
+      icon: "assign",
+      label: "Assign User",
+  },
+  {
+      path: "/dashboard/users/changePassword",
+      icon: "lock",
+      label: "Change Password",
+  },
+];
 
 const UsersRoutes = () => {
   return (
     <div>
-      <UserNavbar />
+      <SubNavbar menus={menus} />
       <Switch>
         <Route exact path="/dashboard/users" component={UsersIndex} />
         <Route exact path="/dashboard/users/assign" component={AssignUser} />
