@@ -2,7 +2,7 @@ import Joi from "joi-browser";
 import React from "react";
 import { Link } from "react-router-dom";
 
-import useForm from "../../components/ui/forms/userForm";
+import useForm from "../../components/ui/forms/useForm";
 
 const RegistrationForm = ({ onSubmit, loading, error }) => {
     const schema = {

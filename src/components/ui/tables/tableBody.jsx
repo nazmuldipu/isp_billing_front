@@ -12,12 +12,12 @@ const TableBody = ({ data, columns }) => {
   };
 
   return (
-    <tbody>
+    <tbody className="flex-1 sm:flex-none bg-white">
       {data.map((item) => (
-        <tr key={item._id}>
+        <tr key={item._id} className="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 border-b md:border-0 pl-2 md:pl-0">
           {columns.map((column) => (
             <td key={createKey(item, column)} className={column.className}>
-              {renderCell(item, column)}
+              <span className="md:hidden font-semibold">{column.label ? column.label + ': ' : ''}</span> {renderCell(item, column)}
             </td>
           ))}
         </tr>

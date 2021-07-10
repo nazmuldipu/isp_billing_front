@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Joi from "joi-browser";
 import React, { useEffect } from "react";
+import Button from "../../components/ui/forms/button";
 
-import useForm from "../../components/ui/forms/userForm";
+import useForm from "../../components/ui/forms/useForm";
 
 const UserForm = ({ user, onSubmit, onClear }) => {
   const schema = {
@@ -30,27 +31,19 @@ const UserForm = ({ user, onSubmit, onClear }) => {
   };
 
   return (
-    <div className="pb-3 border rounded shadow-sm">
-      <h3 className="text-center">User Form</h3>
+    <div className="bg-gray-50 p-3 border rounded shadow-sm">
+      <h2 className="text-center text-2xl font-bold text-gray-900">User Form</h2>
 
-      <div className="p-3">
-        <form onSubmit={handleSubmit}>
-          {renderInput("name", "Name")}
-          {renderInput("email", "Email")}
-          {renderInput("password", "Password")}
+      <form onSubmit={handleSubmit}>
+        {renderInput("name", "Name")}
+        {renderInput("email", "Email")}
+        {renderInput("password", "Password")}
 
-          <div className="d-grid gap-2 d-flex justify-content-end mt-3">
-            {renderButton("Save", "btn btn-sm btn-success")}
-            <button
-              type="button"
-              className="btn btn-sm btn-danger"
-              onClick={onClear}
-            >
-              Clear
-            </button>
-          </div>
-        </form>
-      </div>
+        <div className="flex flex-row-reverse mt-4">
+          {renderButton("Save", "", "ml-2", false)}
+          <Button label="Clear" btnBase="danger" onClick={onClear} />         
+        </div>
+      </form>
     </div>
   );
 };

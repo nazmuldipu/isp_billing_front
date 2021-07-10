@@ -2,7 +2,8 @@
 import React, { useEffect } from "react";
 import Joi from "joi-browser";
 // import { useDispatch, useSelector } from "react-redux";
-import useForm from "../../components/ui/forms/userForm";
+import useForm from "../../components/ui/forms/useForm";
+import Button from "../../components/ui/forms/button";
 // import { loadCompanies } from "./../companies/companiesSlice";
 
 const AssignUserForm = ({ user, onSubmit, onClear, onRemove }) => {
@@ -39,43 +40,29 @@ const AssignUserForm = ({ user, onSubmit, onClear, onRemove }) => {
   };
 
   return (
-    <div className="pb-3 border rounded shadow-sm">
-      <h3 className="text-center">Change Password Form</h3>
+    <div className="bg-gray-50 p-3 border rounded shadow-sm">
+      <h2 className="text-center text-2xl font-bold text-gray-900">Assign User Form</h2>
 
       <div className="p-3">
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label className="col-form-label-sm p-0 mb-1" htmlFor="sms_quota">
-              User Name
-            </label>
-            <label
-              id="sms_quota"
-              className="form-control form-control-sm bg-white"
-            >
+          <div className="mt-2 md:mt-4">
+            <label className="block text-xs md:text-sm font-medium text-gray-600" htmlFor="sms_quota">User Name</label>
+
+            <label id="sms_quota" className="block w-full px-2 md:px-4 py-1 md:py-2 text-sm md:text-lg text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring" >
               {user.name}
             </label>
           </div>
+
           {/* TODO: change following select form component to type ahed component */}
           {/* {companyPage.docs
             ? renderSelect("companyId", "Company", companyPage.docs)
             : ""} */}
-          <div className="d-grid gap-2 d-flex justify-content-end mt-3">
-            {renderButton("Update", "btn btn-sm btn-success")}
-            <button
-              type="button"
-              className="btn btn-sm btn-danger"
-              onClick={onRemove}
-            >
-              Remove Company
-            </button>
-            <button
-              type="button"
-              className="btn btn-sm btn-danger"
-              onClick={onClear}
-            >
-              Clear
-            </button>
-          </div>
+
+          <div className="flex flex-row-reverse mt-4">
+            {renderButton("Change")}
+            <Button label="Remove Company" btnBase="danger" className="mx-2" onClick={onRemove} />
+            <Button label="Clear" btnBase="danger" onClick={onClear} />
+          </div>          
         </form>
       </div>
     </div>

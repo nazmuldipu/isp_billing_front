@@ -140,9 +140,9 @@ const useForm = ({ schema }) => {
         );
     };
 
-    const renderButton = (label, btnType = 'primary', className = '', loading = false) => {
+    const renderButton = (label, btnBase = 'primary', className = '', loading = false, btnType = 'submit') => {
         return (
-            <Button label={label} btnType={btnType} className={className} loading={loading} />
+            <Button label={label} btnType={btnType} btnBase={btnBase} className={className} loading={loading} />
         );
     };
 

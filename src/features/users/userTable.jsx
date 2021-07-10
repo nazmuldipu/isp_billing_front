@@ -22,7 +22,7 @@ const UserTable = ({ userPage, select }) => {
   ];
 
   return (
-    <div className="border rounded shadow-sm">
+    <div className=" m-3">
       {userPage.docs && (
         <Table tableName={"User Table"} columns={columns} data={userPage} />
       )}

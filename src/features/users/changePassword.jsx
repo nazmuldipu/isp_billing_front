@@ -29,23 +29,21 @@ const ChangePassword = () => {
   };
 
   return (
-    <div className="container">
-      <div className="row my-3">
-        <div className="col-md-5">
-          {user.name ? (
-            <ChangePasswordForm
-              user={user}
-              onSubmit={handleSubmit}
-              onClear={handleClear}
-            />
-          ) : (
-            ""
-          )}
-        </div>
+    <div className="grid grid-cols-1 md:grid-cols-3 m-3 gap-3">
+      <div className="rounded-md">
+        {user.name ? (
+          <ChangePasswordForm
+            user={user}
+            onSubmit={handleSubmit}
+            onClear={handleClear}
+          />
+        ) : (
+          ""
+        )}
+      </div>
 
-        <div className="col-md-7 my-3 my-md-0">
-          <UserTable userPage={userPage} select={handleSelect}></UserTable>
-        </div>
+      <div className="md:col-span-2 bg-gray-50 rounded-md">
+        <UserTable userPage={userPage} select={handleSelect}></UserTable>
       </div>
     </div>
   );
