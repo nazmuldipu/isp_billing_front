@@ -24,9 +24,9 @@ const UsersRoutes = () => {
     <div>
       <SubNavbar menus={menus} />
       <Switch>
-        <Route exact path="/dashboard/users" component={UsersIndex} />
-        <Route exact path="/dashboard/users/assign" component={AssignUser} />
         <Route exact path="/dashboard/users/changePassword" component={ChangePassword} />
+        <Route exact path="/dashboard/users/assign" component={AssignUser} />
+        <Route exact path="/dashboard/users" component={UsersIndex} />
         <Redirect to="/not-found" />
       </Switch>
     </div>

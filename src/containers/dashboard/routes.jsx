@@ -8,12 +8,14 @@ import DashboardIndex from ".";
 import Navbar from "./navbar";
 import { useLocation, Link } from 'react-router-dom'
 import { SVGIcons } from '../../components/ui/svgIcons';
+import ClinetRoutes from "../../features/clients/routes";
 
 const sideBar = [
     { path: "/dashboard", label: "Dashboard", icon: 'dashboard' },
     { path: "/dashboard/companies", label: "Company", icon: 'building' },
     { path: "/dashboard/users", label: "Users", icon: 'users' },
-    { path: "/dashboard/clients", label: "Clients", icon: 'user' }
+    { path: "/dashboard/clients", label: "Clients", icon: 'user' },
+    { path: "/dashboard/settings", label: "Settings", icon: 'settings' }
 ]
 
 const DashboardRouter = () => {
@@ -38,6 +40,7 @@ const DashboardRouter = () => {
                 </div>
                 <div className="w-full">
                     <Switch>
+                        <RoleRoute path="/dashboard/clients" component={ClinetRoutes} roles={["ADMIN"]} /> {/* TODO: Change the role */}
                         <RoleRoute path="/dashboard/users" component={UsersRoutes} roles={["ADMIN"]} />
                         <RoleRoute path="/dashboard/companies" component={CompanyRoutes} roles={["ADMIN"]} />
                         <Route exact path="/dashboard" component={DashboardIndex} />

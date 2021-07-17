@@ -108,7 +108,7 @@ const useForm = ({ schema }) => {
                     onChange={handleChange}
                     error={errors[name]}
                 />
-                <div className="form-text text-end">
+                <div className="text-right text-xs">
                     {data[name] ? data[name].length : 0}/{maxlength}
                 </div>
             </div>
