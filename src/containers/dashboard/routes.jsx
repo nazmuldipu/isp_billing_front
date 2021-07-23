@@ -3,8 +3,6 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import RoleRoute from "../../services/roleRoutes";
 import UsersRoutes from "../../features/users/routes";
 import CompanyRoutes from "../../features/companies/routes";
-import { useSelector } from "react-redux";
-import { getCurrentUser } from "../../features/auth/authSlice";
 
 import DashboardIndex from ".";
 import Navbar from "./navbar";
@@ -23,7 +21,6 @@ const sideBar = [
 
 const DashboardRouter = () => {
   const location = useLocation();
-  const { role } = useSelector((state) => getCurrentUser(state));
 
   return (
     <div className="block bg-gray-300 w-full min-h-screen">
@@ -34,11 +31,10 @@ const DashboardRouter = () => {
             {sideBar.map((menu) => (
               <li key={menu.path} className="text-sm cursor-pointer border-t">
                 <Link
-                  className={`grid grid-flow-col auto-cols-max p-2  ${
-                    location.pathname === menu.path
-                      ? "bg-white border-l-4 border-red-700"
-                      : "bg-gray-100"
-                  }`}
+                  className={`grid grid-flow-col auto-cols-max p-2  ${location.pathname === menu.path
+                    ? "bg-white border-l-4 border-red-700"
+                    : "bg-gray-100"
+                    }`}
                   to={menu.path}
                 >
                   {menu.icon && <SVGIcons classNames="w-5" name={menu.icon} />}
@@ -50,28 +46,10 @@ const DashboardRouter = () => {
         </div>
         <div className="w-full">
           <Switch>
-            <RoleRoute
-              path="/dashboard/clients"
-              component={ClinetRoutes}
-              roles={["COMPANY"]}
-            />{" "}
-            {/* TODO: Change the role */}
-            <RoleRoute
-              path="/dashboard/settings"
-              component={SettingsRoutes}
-              roles={["COMPANY"]}
-            />{" "}
-            {/* TODO: Change the role */}
-            <RoleRoute
-              path="/dashboard/users"
-              component={UsersRoutes}
-              roles={["ADMIN"]}
-            />
-            <RoleRoute
-              path="/dashboard/companies"
-              component={CompanyRoutes}
-              roles={["ADMIN"]}
-            />
+            <RoleRoute path="/dashboard/clients" component={ClinetRoutes} roles={["COMPANY"]} />
+            <RoleRoute path="/dashboard/settings" component={SettingsRoutes} roles={["COMPANY"]} />
+            <RoleRoute path="/dashboard/users" component={UsersRoutes} roles={["ADMIN"]} />
+            <RoleRoute path="/dashboard/companies" component={CompanyRoutes} roles={["ADMIN"]}/>
             <Route exact path="/dashboard" component={DashboardIndex} />
             <Redirect to="/not-found" />
           </Switch>

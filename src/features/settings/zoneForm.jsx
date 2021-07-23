@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from "react";
 import Joi from "joi-browser";
 import useForm from "../../components/ui/forms/useForm";
 import Button from "../../components/ui/forms/button";
@@ -8,9 +9,18 @@ const ZoneForm = ({ zone, onSubmit, onClear, error }) => {
     serial: Joi.number().required().label("Per Month"),
     name: Joi.string().required().label("Name"),
   };
-  const { data, renderInput, renderButton, validateSubmit } = useForm(
+
+  const { data, initForm, renderInput, renderButton, validateSubmit } = useForm(
     { schema }
   );
+
+  useEffect(() => {
+    if (zone && zone.name) {
+      initForm(zone);
+    } else {
+      initForm({});
+    }
+  }, [zone]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
