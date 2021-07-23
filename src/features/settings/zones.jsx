@@ -46,11 +46,7 @@ const Zone = () => {
       </div>
 
       <div className="md:col-span-2">
-        <ZoneTable zonePage={zonePage} select={handleSelect}></ZoneTable>
-        {/* <CompanyTable
-          zonePage={zonePage}
-          select={handleSelect}
-        ></CompanyTable> */}
+        <ZoneTable zonePage={zonePage} select={handleSelect}></ZoneTable>       
       </div>
     </div>
   );
