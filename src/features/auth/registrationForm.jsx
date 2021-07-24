@@ -23,34 +23,33 @@ const RegistrationForm = ({ onSubmit, loading, error }) => {
     };
 
     return (
-        <div className="w-full bg-white p-4 md:p-12">
+        <div>
             <div className="grid grid-flow-col auto-cols-max">
-                <Link to="/" className="grid grid-flow-col auto-cols-max">
+                <a href="/" className="inline-block">
+                    <span className="sr-only">Workflow</span>
                     <img
                         className="h-8 w-auto sm:h-10"
                         src="logo.svg"
                         alt=""
                     />
-                    <span className="sr-only">Workflow</span>
-                    <h2 className="inline-block text-2xl font-semibold text-gray-700 dark:text-white pl-4">ISP-Billing</h2>
-                </Link>
+                </a>
+                <h2 className="text-2xl font-semibold text-gray-700 dark:text-white pl-4">ISP-Billing</h2>
             </div>
-
-            <p className="text-base text-gray-400 dark:text-gray-200">Welcome! Please provide your info. {loading}</p>
+            <p className="text-base text-gray-400 dark:text-gray-200">Welcome back! Please login to your account.</p>
             <div className="flex items-center justify-between mt-4">
-                <span className="w-1/6 border-b dark:border-gray-600 lg:w-1/6"></span>
-                <div className="text-xl text-center text-gray-900 uppercase dark:text-gray-400">Register with email</div>
-                <span className="w-1/6 border-b dark:border-gray-400 lg:w-1/6"></span>
+                <span className="w-1/5 border-b dark:border-gray-600 lg:w-1/4"></span>
+                <div className="text-xl text-center text-gray-900 uppercase dark:text-gray-400">login with email</div>
+                <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
             </div>
 
             <span className="text-base md:text-lg font-medium text-red-500">{error}</span>
             <form onSubmit={handleSubmit}>
                 {renderInput("name", "Name")}
-                {renderInput("email", "Email", "email")}
-                {/* {renderInput("phone", "Phone", "tel")} */}
+                {renderInput("email", "Email")}
                 {renderInput("password", "Password", "password")}
-                {renderButton("Register", "primary", "mt-4 md:mt-8", loading)}
+                {renderButton("Login", "primary", "w-full mt-4 md:mt-8", loading)}
             </form>
+
 
             <div className="flex items-center justify-between mt-4">
                 <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
@@ -59,6 +58,32 @@ const RegistrationForm = ({ onSubmit, loading, error }) => {
                 <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
             </div>
         </div>
+        // <div>
+
+
+        //     <p className="text-base text-gray-400 dark:text-gray-200">Welcome! Please provide your info. {loading}</p>
+        //     <div className="flex items-center justify-between mt-4">
+        //         <span className="w-1/6 border-b dark:border-gray-600 lg:w-1/6"></span>
+        //         <div className="text-xl text-center text-gray-900 uppercase dark:text-gray-400">Register with email</div>
+        //         <span className="w-1/6 border-b dark:border-gray-400 lg:w-1/6"></span>
+        //     </div>
+
+        //     <span className="text-base md:text-lg font-medium text-red-500">{error}</span>
+        //     <form onSubmit={handleSubmit}>
+        //         {renderInput("name", "Name")}
+        //         {renderInput("email", "Email", "email")}
+        //         {/* {renderInput("phone", "Phone", "tel")} */}
+        //         {renderInput("password", "Password", "password")}
+        //         {renderButton("Register", "primary", "mt-4 md:mt-8", loading)}
+        //     </form>
+
+        //     <div className="flex items-center justify-between mt-4">
+        //         <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
+        //         <Link to="/login" className="text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline"> or sign in </Link>
+
+        //         <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
+        //     </div>
+        // </div>
     );
 };
 

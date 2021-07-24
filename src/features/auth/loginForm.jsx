@@ -22,7 +22,7 @@ const LoginForm = ({ onSubmit, error, loading }) => {
     };
 
     return (
-        <div className="">
+        <div>
             <div className="grid grid-flow-col auto-cols-max">
                 <a href="/" className="inline-block">
                     <span className="sr-only">Workflow</span>
