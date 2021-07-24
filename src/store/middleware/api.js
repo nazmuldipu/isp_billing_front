@@ -1,7 +1,6 @@
 import axios from 'axios';
 import * as actions from '../api';
 
-console.log(process.env.REACT_APP_API_URL)
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 export const setToken = (token) => {
     axios.defaults.headers.common["x-auth-token"] = token;

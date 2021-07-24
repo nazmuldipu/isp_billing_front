@@ -12,7 +12,7 @@ import ClinetRoutes from "../../features/clients/routes";
 import SettingsRoutes from "../../features/settings/routes";
 import { useSelector } from "react-redux";
 import { getCurrentUser } from "../../features/auth/authSlice";
-
+import Icon from "../../components/ui/Icon";
 
 const sideBar = [
   { path: "/dashboard", label: "Dashboard", icon: "dashboard", roles: [] },
@@ -27,27 +27,30 @@ const DashboardRouter = () => {
   const { role } = useSelector((state) => getCurrentUser(state));
 
   const validateRole = (roles) => {
-    if(!roles.length) return true;
+    if (!roles.length) return true;
     const v = roles.some((r) => r === role);
     return v;
   }
 
   return (
-    <div className="block bg-gray-300 w-full min-h-screen">
-      <Navbar />
+    <div className="block bg-gray-300 w-full min-h-screen ">
       <div className="grid grid-cols-1 md:grid-cols-2-min-fill md:min-h-screen">
-        <div className="w-full md:w-52 lg:w-60 xl:w-72 h-auto md:min-h-full bg-white">
-          <ul className="border rounded-md">
+        <div className="w-full md:w-52 lg:w-60 xl:w-72 h-auto md:min-h-full bg-white py-10">
+          <ul className="">
             {sideBar.map((menu) => (
-              validateRole(menu.roles) && <li key={menu.path} className="text-sm cursor-pointer border-t">
+              validateRole(menu.roles) && <li key={menu.path} className="text-base cursor-pointer">
                 <Link
-                  className={`grid grid-flow-col auto-cols-max p-2  ${location.pathname === menu.path
-                    ? "bg-white border-l-4 border-red-700"
-                    : "bg-gray-100"
+                  className={`grid grid-flow-col auto-cols-max py-3 pl-5 ${location.pathname === menu.path
+                    ? "text-red-600 font-semibold border-r-4 border-red-700"
+                    : ""
                     }`}
                   to={menu.path}
                 >
-                  {menu.icon && <SVGIcons classNames="w-5" name={menu.icon} />}
+                  {/* {menu.icon && <SVGIcons classNames="w-5" name={menu.icon} />} */}
+                  {menu.icon && <Icon name={menu.icon} stroke={location.pathname === menu.path
+                    ? "red"
+                    : "black"
+                    } size="24" fill="true"/> }
                   <span className="pl-2 h-5"> {menu.label}</span>
                 </Link>
               </li>
@@ -55,6 +58,7 @@ const DashboardRouter = () => {
           </ul>
         </div>
         <div className="w-full">
+          <Navbar />
           <Switch>
             <RoleRoute path="/dashboard/clients" component={ClinetRoutes} roles={["COMPANY"]} />
             <RoleRoute path="/dashboard/settings" component={SettingsRoutes} roles={["COMPANY"]} />
