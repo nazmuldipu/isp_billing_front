@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import RoleRoute from "../../services/roleRoutes";
 import ClinetRoutes from "../../features/clients/routes";
@@ -14,7 +14,7 @@ import { getCurrentUser } from "../../features/auth/authSlice";
 import Icon from "../../components/ui/Icon";
 
 const sideBar = [
-  { path: "/dashboard", label: "Dashboard", icon: "dashboard", roles: [] },
+  { path: "/dashboard", label: "Dashboard", icon: "dash", roles: [] },
   {
     path: "/dashboard/companies",
     label: "Company",
@@ -39,6 +39,7 @@ const sideBar = [
 const DashboardRouter = () => {
   const location = useLocation();
   const { role } = useSelector((state) => getCurrentUser(state));
+  const [toogleMenu, setToogleMenu] = useState(false);
 
   const validateRole = (roles) => {
     if (!roles.length) return true;
@@ -46,12 +47,25 @@ const DashboardRouter = () => {
     return v;
   };
 
+  const handleToogle = () => {
+    setToogleMenu(!toogleMenu);
+  };
+
   return (
     <div className="flex h-screen bg-gray-200 font-roboto">
       {/* Side navbar */}
       <div className="flex">
-        <div className="hidden fixed z-20 inset-0 bg-black opacity-50 transition-opacity md:hidden"></div>
-        <div className="-translate-x-full ease-in fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0">
+        <div
+          className={`${
+            toogleMenu ? "block" : "hidden"
+          } fixed z-20 inset-0 bg-black opacity-50 transition-opacity md:hidden`}
+          onClick={handleToogle}
+        ></div>
+        <div
+          className={`${
+            toogleMenu ? "translate-x-0 ease-out" : "-translate-x-full ease-in"
+          } fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0`}
+        >
           <div className="flex items-center justify-center mt-8">
             <div className="flex items-center">
               <svg
@@ -89,7 +103,7 @@ const DashboardRouter = () => {
                       location.pathname === menu.path
                         ? "router-link-active router-link-exact-active bg-gray-600 text-gray-100  bg-opacity-25  border-gray-100"
                         : "border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100"
-                    } flex items-center duration-200 mt-4 py-2 px-6 border-l-4 `}
+                    } flex items-center duration-200 py-2 px-6 border-l-4 `}
                     aria-current="page"
                   >
                     <Icon
@@ -104,8 +118,10 @@ const DashboardRouter = () => {
           </nav>
         </div>
       </div>
+
+      {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Navbar />
+        <Navbar sideToggle={handleToogle} />
         <Switch>
           <RoleRoute
             path="/dashboard/clients"

@@ -1,35 +1,32 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
-// import { loggedOut } from "../../features/auth/authSlice";
-// import { useDispatch } from "react-redux";
-// import { useHistory } from "react-router-dom";
+import React, { Fragment } from "react";
+import { Menu, Transition } from "@headlessui/react";
+
+import { loggedOut } from "../../features/auth/authSlice";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import Icon from "../../components/ui/Icon";
 
-// const navigation = [
-//   { name: "Home", href: "/", current: false },
-//   { name: "Dashboard", href: "/dashboard", current: true },
-//   { name: "Team", href: "#", current: false },
-//   { name: "Projects", href: "#", current: false },
-//   { name: "Calendar", href: "#", current: false },
-// ];
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 
-// function classNames(...classes) {
-//   return classes.filter(Boolean).join(" ");
-// }
+const Navbar = ({ sideToggle }) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
 
-const Navbar = () => {
-//   const history = useHistory();
-//   const dispatch = useDispatch();
-
-//   const handleLogout = () => {
-//     dispatch(loggedOut());
-//     history.push("/login");
-//   };
+  const handleLogout = () => {
+    dispatch(loggedOut());
+    history.push("/login");
+  };
 
   return (
     <header className="flex justify-between items-center py-4 px-6 bg-white border-b-4 border-indigo-600">
       <div className="flex items-center">
-        <button className="text-gray-500 focus:outline-none lg:hidden">
+        <button
+          className="text-gray-500 focus:outline-none lg:hidden"
+          onClick={sideToggle}
+        >
           <Icon
             name="burger"
             className="h-6 w-6"
@@ -49,57 +46,96 @@ const Navbar = () => {
             />
           </span>
           <input
-            className="w-32 sm:w-64 rounded-md pl-10 pr-4 focus:border-indigo-600"
+            className="w-32 sm:w-64 rounded-md pl-10 pr-4 py-2 border border-gray-500 focus:border-indigo-600"
             type="text"
             placeholder="Search"
           />
         </div>
       </div>
+
       <div className="flex items-center">
         <button className="flex mx-4 text-gray-600 focus:outline-none">
-        <Icon
+          <Icon
             name="bell"
             className="h-6 w-6"
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
           />
-          
         </button>
-        <div className="relative">
-          <button className="relative z-10 block h-8 w-8 rounded-full overflow-hidden shadow focus:outline-none">
-            <img
-              className="h-full w-full object-cover"
-              src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=296&amp;q=80"
-              alt="Your avatar"
-            />
-          </button>
-          <div
-            className="fixed inset-0 h-full w-full z-10 hidden"
-          ></div>
-          <div
-            className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20 hidden"
-          >
-            <a
-              href="#"
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-            >
-              Profile
-            </a>
-            <a
-              href="#"
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-            >
-              Products
-            </a>
-            <a
-              href="/"
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-            >
-              Log out
-            </a>
-          </div>
-        </div>
+
+        {/* Profile dropdown */}
+        <Menu as="div" className="ml-3 relative">
+          {({ open }) => (
+            <>
+              <div>
+                <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                  <span className="sr-only">Open user menu</span>
+                  <img
+                    className="h-8 w-8 rounded-full"
+                    src="https:images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    alt=""
+                  />
+                </Menu.Button>
+              </div>
+              <Transition
+                show={open}
+                as={Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+              >
+                <Menu.Items
+                  static
+                  className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                >
+                  <Menu.Item>
+                    {({ active }) => (
+                      <a
+                        href="/dashboard"
+                        className={classNames(
+                          active ? "bg-gray-100" : "",
+                          "block px-4 py-2 text-sm text-gray-700"
+                        )}
+                      >
+                        Your Profile
+                      </a>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <a
+                        href="/dashboard"
+                        className={classNames(
+                          active ? "bg-gray-100" : "",
+                          "block px-4 py-2 text-sm text-gray-700"
+                        )}
+                      >
+                        Settings
+                      </a>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <div
+                        onClick={handleLogout}
+                        className={classNames(
+                          active ? "bg-gray-100" : "",
+                          "block px-4 py-2 text-sm text-gray-700"
+                        )}
+                      >
+                        Sign out
+                      </div>
+                    )}
+                  </Menu.Item>
+                </Menu.Items>
+              </Transition>
+            </>
+          )}
+        </Menu>
       </div>
     </header>
     //     <Disclosure as="nav" className="bg-gray-100">
