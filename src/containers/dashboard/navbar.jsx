@@ -24,11 +24,11 @@ const Navbar = ({ sideToggle }) => {
     <header className="flex justify-between items-center py-4 px-6 bg-white border-b-4 border-indigo-600">
       <div className="flex items-center">
         <button
-          className="text-gray-500 focus:outline-none lg:hidden"
+          className="text-gray-600 focus:outline-none lg:hidden"
           onClick={sideToggle}
         >
           <Icon
-            name="burger"
+            name="menu"
             className="h-6 w-6"
             fill="none"
             stroke="currentColor"

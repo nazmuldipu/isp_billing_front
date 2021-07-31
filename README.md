@@ -12,4 +12,4 @@
         - [ ] Create Client form
         - [ ] Create clients table
         - [ ] Clients CRUD operation
-- [ ] Frontend SVG: create a dynamic function for svg.
+- [x] Frontend SVG: create a dynamic function for svg.
