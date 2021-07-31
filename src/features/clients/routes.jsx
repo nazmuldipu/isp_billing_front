@@ -6,10 +6,10 @@ import AddClient from './add'
 import SubNavbar from '../../components/subNavbar';
 
 const menus = [
-    { path: "/dashboard/clients", icon: "list", label: "List" },
+    { path: "/dashboard/clients", icon: "view-list", label: "List" },
     {
         path: "/dashboard/clients/add",
-        icon: "add",
+        icon: "user-add",
         label: "New",
     }
   ];

@@ -14,11 +14,11 @@ import { getCurrentUser } from "../../features/auth/authSlice";
 import Icon from "../../components/ui/Icon";
 
 const sideBar = [
-  { path: "/dashboard", label: "Dashboard", icon: "dash", roles: [] },
+  { path: "/dashboard", label: "Dashboard", icon: "view-boards", roles: [] },
   {
     path: "/dashboard/companies",
     label: "Company",
-    icon: "building",
+    icon: "office-building",
     roles: ["ADMIN"],
   },
   { path: "/dashboard/users", label: "Users", icon: "users", roles: ["ADMIN"] },
@@ -31,7 +31,7 @@ const sideBar = [
   {
     path: "/dashboard/settings",
     label: "Settings",
-    icon: "settings",
+    icon: "cog",
     roles: ["COMPANY"],
   },
 ];
@@ -108,8 +108,7 @@ const DashboardRouter = () => {
                   >
                     <Icon
                       name={menu.icon}
-                      className="h-5 w-5"
-                      fill="currentColor"
+                      stroke={location.pathname === menu.path ?"white":"#6b7280"}
                     />
                     <span className="mx-4">{menu.label}</span>
                   </Link>
@@ -120,7 +119,7 @@ const DashboardRouter = () => {
       </div>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-y-auto">
         <Navbar sideToggle={handleToogle} />
         <Switch>
           <RoleRoute

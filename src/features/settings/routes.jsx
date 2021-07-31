@@ -7,10 +7,10 @@ import Zone from './zones';
 import SettingsIndex from './index';
 
 const menus = [
-    { path: "/dashboard/settings/zones", icon: "map", label: "Zone" },
+    { path: "/dashboard/settings/zones", icon: "location-marker", label: "Zone" },
     {
         path: "/dashboard/settings/boxes",
-        icon: "box",
+        icon: "archive",
         label: "Boxs",
     }
 ];

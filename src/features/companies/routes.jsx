@@ -6,10 +6,10 @@ import EntityLimit from './entityLimit';
 import SubNavbar from "../../components/subNavbar";
 
 const menus = [
-  { path: "/dashboard/companies", icon: "list", label: "List" },
+  { path: "/dashboard/companies", icon: "view-list", label: "List" },
   {
     path: "/dashboard/companies/entityLimit",
-    icon: "settings",
+    icon: "tag",
     label: "Limit Entity",
   },
   {

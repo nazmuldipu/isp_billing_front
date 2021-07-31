@@ -6,15 +6,15 @@ import ChangePassword from './changePassword';
 import SubNavbar from "../../components/subNavbar";
 
 const menus = [
-  { path: "/dashboard/users", icon: "list", label: "List" },
+  { path: "/dashboard/users", icon: "view-list", label: "List" },
   {
       path: "/dashboard/users/assign",
-      icon: "assign",
+      icon: "user",
       label: "Assign User",
   },
   {
       path: "/dashboard/users/changePassword",
-      icon: "lock",
+      icon: "lock-open",
       label: "Change Password",
   },
 ];

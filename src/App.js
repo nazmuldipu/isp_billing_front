@@ -9,6 +9,7 @@ import NotFound from './containers/notFound';
 import RegistrationPage from './features/auth/registrationPage';
 import DashboardRouter from './containers/dashboard/routes';
 import ProtectedRoute from "./services/protectedRoutes";
+import IconsUI from './containers/icons';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Switch>
       <ProtectedRoute path="/dashboard" component={DashboardRouter} />
         {/* <Route path="/dashboard" component={DashboardRouter} /> */}
+        <Route path="/icons" component={IconsUI} />
         <Route path="/login" component={LoginPage} />
         <Route path="/register" component={RegistrationPage} />
         <Route path="/not-found" component={NotFound} />

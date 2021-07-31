@@ -12,10 +12,4 @@
         - [ ] Create Client form
         - [ ] Create clients table
         - [ ] Clients CRUD operation
-
-
-&#9744;
-- [ ]
-- [x]
-
-&#9744; &#9745; &#9746; &#9747; &check; &#9881;
+- [ ] Frontend SVG: create a dynamic function for svg.
