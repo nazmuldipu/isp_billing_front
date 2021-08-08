@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Joi from "joi-browser";
 import useForm from "../../components/ui/forms/useForm";
 import Button from "../../components/ui/forms/button";
@@ -62,8 +62,8 @@ const AddClient = () => {
     client_permanent_address: Joi.string()
       .required()
       .label("Permanent Address"),
-    client_address_lat: Joi.number().required().label("Address Latitude"),
-    client_address_long: Joi.number().required().label("Address Longitude"),
+    client_address_lat: Joi.number().label("Address Latitude"),
+    client_address_long: Joi.number().label("Address Longitude"),
 
     connection_type: Joi.string().required().label("Connection Type"),
     connection_package: Joi.string().required().label("Package"),
@@ -88,11 +88,12 @@ const AddClient = () => {
     bill_collector: Joi.string().label("Bill Collector"),
     technician: Joi.string().label("Technician"),
 
-    note: Joi.string().required().label("Note"),
+    note: Joi.string().label("Note"),
   };
 
   const {
     data,
+    initForm,
     renderInput,
     renderSelect,
     renderTextArea,
@@ -102,8 +103,39 @@ const AddClient = () => {
     schema,
   });
 
+  useEffect(() => {    
+      initForm({
+        client_id: "42Af",
+        client_type: "home",
+        client_nid_number: "5455456465446",
+        client_name: "Abbas",
+        client_father: "Shakil",
+        clinet_phone: "01542165465",
+        client_email: "abbas@gmail.com",
+        client_dob: "1985-11-26",
+        client_gender: "male",
+        client_occupation: "job",
+        client_username: "abbas03",
+        client_password: "abbas034",
+        client_permanent_address: "Bhuigor, Fatullah, Narayanganj - 1421",
+        
+        connection_type: "shared",
+        connection_package: "five_mbps",
+        cable_type: "fiber",
+        send_login_sms: false,
+    
+        signup_fee: 500,
+        discount: 0,
+        extra: 0,
+        payment_method: "cash",
+        
+        zone: "north",        
+    });    
+  }, []);
+
+  
+
   const handleSubmit = (e) => {
-    e.preventDefault();
     if (validateSubmit(e)) {
       const obj = { ...data };
 
@@ -112,6 +144,11 @@ const AddClient = () => {
       );
 
       console.log(obj);
+      const formData = new FormData()
+      Object.keys(obj).forEach((key) => {
+        formData.append(key, obj[key])
+      })
+      console.log(formData);
       // onSubmit(obj);
     }
   };
