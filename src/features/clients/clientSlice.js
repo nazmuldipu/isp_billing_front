@@ -5,11 +5,13 @@ const slice = createSlice({
     name: 'clients',
     initialState: {
         page: {},
+        error: "",
         loading: false,
         lastFetch: null
     },
     reducers: {
         clientsRequested: (clients, action) => {
+            clients.error = "";
             clients.loading = true;
         },
         clientsReceived: (clients, action) => {
@@ -18,6 +20,7 @@ const slice = createSlice({
             clients.lastFetch = Date.now();
         },
         clientsRequestFailed: (clients, action) => {
+            clients.error = action.payload;
             clients.loading = false;
         },
         clientAdded: (clients, action) => {

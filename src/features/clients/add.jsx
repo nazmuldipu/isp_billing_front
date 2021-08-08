@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Joi from "joi-browser";
 import useForm from "../../components/ui/forms/useForm";
 import Button from "../../components/ui/forms/button";
+import {saveClient, updateClient} from './clientSlice';
+import { useDispatch, useSelector } from "react-redux";
 
 const client_types = [
   { _id: "home", name: "Home" },
@@ -40,6 +42,14 @@ const connection_packages = [
 ];
 
 const AddClient = () => {
+  const dispatch = useDispatch();
+  const error = useSelector((state) => state.entities.clients.error);
+  const [nidFront, setNidFront] = React.useState();
+  const [nidBack, setNidBack] = React.useState();
+  const [profile, setProfile] = React.useState();
+  const [edit, setEdit] = useState(false);
+  const [client, setClient] = useState({});
+
   const schema = {
     client_id: Joi.string().required().label("Client ID"),
     client_type: Joi.string().required().label("Client Type"),
@@ -133,30 +143,36 @@ const AddClient = () => {
     });    
   }, []);
 
-  
-
   const handleSubmit = (e) => {
     if (validateSubmit(e)) {
       const obj = { ...data };
 
-      Object.keys(obj).forEach(
-        (k) => !obj[k] && obj[k] !== undefined && delete obj[k]
-      );
+      Object.keys(obj).forEach(key => {
+        if (obj[key] === undefined || obj[key] === "") {
+          delete obj[key];
+        }
+      });
 
-      console.log(obj);
       const formData = new FormData()
       Object.keys(obj).forEach((key) => {
         formData.append(key, obj[key])
       })
-      console.log(formData);
+      formData.append('profile', profile);
+      formData.append('nid_front', nidFront);
+      formData.append('nid_back', nidBack);
+      if (edit) {
+        dispatch(updateClient(client._id, formData));
+      } else {
+        dispatch(saveClient(formData));
+      }
+      setClient({});
       // onSubmit(obj);
     }
   };
 
   const onClear = async () => {
-    console.log("on clear");
-    // setEdit(false);
-    // setCompany({});
+    setEdit(false);
+    setClient({});
   };
 
   return (
@@ -171,6 +187,8 @@ const AddClient = () => {
           </h3>
           {renderInput("client_id", "Client ID*")}
           {renderSelect("client_type", "Client Type*", client_types)}
+          {renderInput("client_nid_number", "NID*")}
+          <div></div>
           {renderInput("client_name", "Name*")}
           {renderInput("client_father", "Father*")}
           {renderInput("clinet_phone", "Phone*")}
@@ -218,15 +236,15 @@ const AddClient = () => {
           {renderSelect("cable_type", "Cable Type*", cable_typs)}
           {renderInput("cable_required", "Cable Required")}
           {renderInput("ip_address", "IP Address")}
-          {renderInput("cable_required", "MAC Address")}
+          {renderInput("mac_address", "MAC Address")}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 border p-3 mt-3 rounded-lg">
           <h3 className="md:col-span-2 text-xl font-bold text-center">Finance </h3>
           {renderInput("signup_fee", "Signup Fee", "number")}
           {renderInput("discount", "Discount", "number")}
-          {renderInput("payment_deadline", "Payment Deadline", "date")}
-          {renderInput("billing_deadline", "Billing Deadline", "date")}
-          {renderInput("termination_date", "Termination Date", "date")}
+          {renderInput("payment_deadline", "Payment Deadline", "number")}
+          {renderInput("billing_deadline", "Billing Deadline", "number")}
+          {renderInput("termination_date", "Termination Date", "number")}
           {renderInput("payment_method", "Payment Method")}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 border p-3 mt-3 rounded-lg">
@@ -238,10 +256,28 @@ const AddClient = () => {
           {renderInput("bill_collector", "Bill Collector")}
           {renderInput("technician", "Technician")}
         </div>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-x-3'>
+          <div>
+            <label htmlFor="profile" className="block text-xs md:text-sm font-medium text-gray-600">Profile</label>
+            <input id="profile" type="file" className="block w-full px-2 md:px-4 py-1 md:py-1.5 text-sm md:text-lg text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring" onChange={(e) => setProfile(e.target.files[0])} />
+            {profile && <span>Profile Image<img className="max-h-80 max-w-full" src={URL.createObjectURL(profile)} alt="Profile" ></img> </span>}
+          </div>
+          <div>
+            <label htmlFor="nidFront" className="block text-xs md:text-sm font-medium text-gray-600">NID Front</label>
+            <input id="nidFront" type="file" className="block w-full px-2 md:px-4 py-1 md:py-1.5 text-sm md:text-lg text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring" onChange={(e) => setNidFront(e.target.files[0])} />
+            {nidFront && <span>NID Front Page <img className="max-h-80 max-w-full" src={URL.createObjectURL(nidFront)} alt="NID Front"></img> </span>}
+          </div>
+          <div>
+            <label htmlFor="nidBack" className="block text-xs md:text-sm font-medium text-gray-600">NID Back</label>
+            <input id="nidBack" type="file" className="block w-full px-2 md:px-4 py-1 md:py-1.5 text-sm md:text-lg text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring" onChange={(e) => setNidBack(e.target.files[0])} />
+            {nidBack && <span>NID Back Page <img className="max-h-80 max-w-full" src={URL.createObjectURL(nidBack)} alt="NID Back"></img> </span>}
+          </div>          
+        </div>
         <div className="flex flex-row-reverse mt-4">
           {renderButton("Save", "", "ml-2", false)}
           <Button label="Clear" btnBase="danger" onClick={onClear} />
         </div>
+        <span className="text-base md:text-lg font-medium text-red-500">{error}</span>
       </form>
     </div>
   );
