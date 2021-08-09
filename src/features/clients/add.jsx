@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Joi from "joi-browser";
 import useForm from "../../components/ui/forms/useForm";
 import Button from "../../components/ui/forms/button";
@@ -112,36 +112,6 @@ const AddClient = () => {
   } = useForm({
     schema,
   });
-
-  useEffect(() => {    
-      initForm({
-        client_id: "42Af",
-        client_type: "home",
-        client_nid_number: "5455456465446",
-        client_name: "Abbas",
-        client_father: "Shakil",
-        clinet_phone: "01542165465",
-        client_email: "abbas@gmail.com",
-        client_dob: "1985-11-26",
-        client_gender: "male",
-        client_occupation: "job",
-        client_username: "abbas03",
-        client_password: "abbas034",
-        client_permanent_address: "Bhuigor, Fatullah, Narayanganj - 1421",
-        
-        connection_type: "shared",
-        connection_package: "five_mbps",
-        cable_type: "fiber",
-        send_login_sms: false,
-    
-        signup_fee: 500,
-        discount: 0,
-        extra: 0,
-        payment_method: "cash",
-        
-        zone: "north",        
-    });    
-  }, []);
 
   const handleSubmit = (e) => {
     if (validateSubmit(e)) {
