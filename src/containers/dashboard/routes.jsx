@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Menu, Transition } from "@headlessui/react";
 import RoleRoute from "../../services/roleRoutes";
 import ClinetRoutes from "../../features/clients/routes";
 import SettingsRoutes from "../../features/settings/routes";
@@ -7,14 +9,17 @@ import UsersRoutes from "../../features/users/routes";
 import CompanyRoutes from "../../features/companies/routes";
 
 import DashboardIndex from ".";
-import Navbar from "./navbar";
-import { useLocation, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { getCurrentUser } from "../../features/auth/authSlice";
+// import Navbar from "./navbar";
+import { useHistory, useLocation, Link } from "react-router-dom";
+import { getCurrentUser, loggedOut } from "../../features/auth/authSlice";
 import Icon from "../../components/ui/Icon";
 
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
 const sideBar = [
-  { path: "/dashboard", label: "Dashboard", icon: "view-boards", roles: [] },
+  { path: "/dashboard", label: "Dashboard", icon: "template", roles: [] },
   {
     path: "/dashboard/companies",
     label: "Company",
@@ -37,9 +42,11 @@ const sideBar = [
 ];
 
 const DashboardRouter = () => {
+  const history = useHistory();
   const location = useLocation();
   const { role } = useSelector((state) => getCurrentUser(state));
   const [toogleMenu, setToogleMenu] = useState(false);
+  const dispatch = useDispatch();
 
   const validateRole = (roles) => {
     if (!roles.length) return true;
@@ -51,45 +58,103 @@ const DashboardRouter = () => {
     setToogleMenu(!toogleMenu);
   };
 
+  const handleLogout = () => {
+    dispatch(loggedOut());
+    history.push("/login");
+  };
+
   return (
     <div className="flex h-screen bg-gray-200 font-roboto">
       {/* Side navbar */}
       <div className="flex">
         <div
-          className={`${
-            toogleMenu ? "block" : "hidden"
-          } fixed z-20 inset-0 bg-black opacity-50 transition-opacity md:hidden`}
+          className={`${toogleMenu ? "block" : "hidden"
+            } fixed z-20 inset-0 bg-white opacity-50 transition-opacity md:hidden`}
           onClick={handleToogle}
         ></div>
         <div
-          className={`${
-            toogleMenu ? "translate-x-0 ease-out" : "-translate-x-full ease-in"
-          } fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0`}
+          className={`${toogleMenu ? "translate-x-0 ease-out" : "-translate-x-full ease-in"
+            } fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-white border-r border-gray-300 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0`}
         >
-          <div className="flex items-center justify-center mt-8">
-            <div className="flex items-center">
-              <svg
-                className="h-12 w-12"
-                viewBox="0 0 512 512"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M364.61 390.213C304.625 450.196 207.37 450.196 147.386 390.213C117.394 360.22 102.398 320.911 102.398 281.6C102.398 242.291 117.394 202.981 147.386 172.989C147.386 230.4 153.6 281.6 230.4 307.2C230.4 256 256 102.4 294.4 76.7999C320 128 334.618 142.997 364.608 172.989C394.601 202.981 409.597 242.291 409.597 281.6C409.597 320.911 394.601 360.22 364.61 390.213Z"
-                  fill="#4C51BF"
-                  stroke="#4C51BF"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                ></path>
-                <path
-                  d="M201.694 387.105C231.686 417.098 280.312 417.098 310.305 387.105C325.301 372.109 332.8 352.456 332.8 332.8C332.8 313.144 325.301 293.491 310.305 278.495C295.309 263.498 288 256 275.2 230.4C256 243.2 243.201 320 243.201 345.6C201.694 345.6 179.2 332.8 179.2 332.8C179.2 352.456 186.698 372.109 201.694 387.105Z"
-                  fill="white"
-                ></path>
-              </svg>
-              <span className="text-white text-2xl mx-2 font-semibold">
-                ISP-Billing
-              </span>
+          <div className="flex justify-between mx-2 mt-3">
+            <div className="text-black text-lg font-bold mx-2 ">
+              ISP-Billing
+            </div>
+            <div>
+              <Menu as="div" className="ml-3 relative">
+                {({ open }) => (
+                  <>
+                    <div>
+                      <Menu.Button className="bg-gray-100 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                        <span className="sr-only">Open user menu</span>
+                        {/* <Icon
+                        name="lightning-bolt"
+                        stroke="#4f46e5" /> */}
+                        <img
+                          className="h-8 w-8 rounded-full"
+                          src="https:images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                          alt=""
+                        />
+                      </Menu.Button>
+                    </div>
+                    <Transition
+                      show={open}
+                      as={Fragment}
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
+                    >
+                      <Menu.Items
+                        static
+                        className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                      >
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a
+                              href="/dashboard"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Your Profile
+                            </a>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a
+                              href="/dashboard"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Settings
+                            </a>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <div
+                              onClick={handleLogout}
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Sign out
+                            </div>
+                          )}
+                        </Menu.Item>
+                      </Menu.Items>
+                    </Transition>
+                  </>
+                )}
+              </Menu>
             </div>
           </div>
           <nav className="mt-10">
@@ -99,17 +164,18 @@ const DashboardRouter = () => {
                   <Link
                     key={menu.path}
                     to={menu.path}
-                    className={`${
-                      location.pathname === menu.path
-                        ? "router-link-active router-link-exact-active bg-gray-600 text-gray-100  bg-opacity-25  border-gray-100"
-                        : "border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100"
-                    } flex items-center duration-200 py-2 px-6 border-l-4 `}
+                    className={`${location.pathname === menu.path
+                      ? "router-link-active router-link-exact-active bg-gray-100  border-indigo-600 text-indigo-600 font-semibold"
+                      : "border-gray-900 text-gray-500 hover:bg-gray-200 hover:bg-opacity-25 "
+                      } flex items-center duration-200 px-3 border-l-4 `}
                     aria-current="page"
                   >
-                    <Icon
-                      name={menu.icon}
-                      stroke={location.pathname === menu.path ?"white":"#6b7280"}
-                    />
+                    <span className="p-1">
+                      <Icon
+                        name={menu.icon}
+                        stroke={location.pathname === menu.path ? "#4f46e5" : "#6b7280"}
+                      />
+                    </span>
                     <span className="mx-4">{menu.label}</span>
                   </Link>
                 )
@@ -120,7 +186,7 @@ const DashboardRouter = () => {
 
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-y-auto">
-        <Navbar sideToggle={handleToogle} />
+        {/* <Navbar sideToggle={handleToogle} /> */}
         <Switch>
           <RoleRoute
             path="/dashboard/clients"

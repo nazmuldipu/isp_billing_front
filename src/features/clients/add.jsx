@@ -103,7 +103,6 @@ const AddClient = () => {
 
   const {
     data,
-    initForm,
     renderInput,
     renderSelect,
     renderTextArea,
