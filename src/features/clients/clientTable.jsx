@@ -8,7 +8,7 @@ const ClientTable = ({clientPage}) => {
         { path: "client_email", label: "Email" },
       ];
 
-    return ( <div className="p-3 bg-gray-50 rounded-md ">{clientPage.docs && (
+    return ( <div className="p-3 bg-gray-50 ">{clientPage.docs && (
         <Table
           tableName={"Client Table"}
           columns={columns}

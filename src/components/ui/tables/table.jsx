@@ -5,6 +5,7 @@ import TableHeader from "./tableHeader";
 import TableFotter from "./tableFotter";
 import { useDispatch } from "react-redux";
 import { sortChanged, searched } from "../../../store/paginateSlice";
+import Icon from "../Icon";
 
 const Table = ({ tableName, columns, data }) => {
   const dispatch = useDispatch();
@@ -30,12 +31,12 @@ const Table = ({ tableName, columns, data }) => {
 
   return (
     <div className="min-w-full overflow-hidden">
-      <div className="grid grid-cols-1 md:grid-cols-2">
-        <h2 className="text-left text-2xl font-bold text-gray-900">{tableName}</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 bg-blue-50 px-4">
+        <h2 className="text-left font-bold text-gray-900 align-middle py-2">{tableName}</h2>
         <form onSubmit={handleSearch} className="place-self-end grid grid-flow-col auto-cols-max gap-2 my-1">
           <input type="search" name="search" placeholder="Search" aria-label="Search" className="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-1 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" />
-          <button className="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-purple-600 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200" type="submit">
-            Filter
+          <button className="flex-shrink-0 px-2 py-0 text-xs font-medium text-white bg-purple-600 rounded-md shadow-md hover:bg-purple-700 focus:outline-none" type="submit">
+            <Icon name="filter" stroke="white" className="inline-block" /> Filter
           </button>
         </form>
       </div>
