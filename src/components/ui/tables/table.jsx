@@ -32,7 +32,7 @@ const Table = ({ tableName, columns, data }) => {
   return (
     <div className="min-w-full overflow-hidden">
       <div className="grid grid-cols-1 md:grid-cols-2 bg-blue-50 px-4">
-        <h2 className="text-left font-bold text-gray-900 align-middle py-2">{tableName}</h2>
+        <h2 className="text-lg font-bold text-gray-900 align-middle py-2">{tableName}</h2>
         <form onSubmit={handleSearch} className="place-self-end grid grid-flow-col auto-cols-max gap-2 my-1">
           <input type="search" name="search" placeholder="Search" aria-label="Search" className="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-1 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" />
           <button className="flex-shrink-0 px-2 py-0 text-xs font-medium text-white bg-purple-600 rounded-md shadow-md hover:bg-purple-700 focus:outline-none" type="submit">

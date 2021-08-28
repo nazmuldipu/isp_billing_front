@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Joi from "joi-browser";
 import useForm from "../../components/ui/forms/useForm";
 import Button from "../../components/ui/forms/button";
-import {saveClient, updateClient} from './clientSlice';
+import { saveClient, updateClient } from "./clientSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const client_types = [
@@ -90,7 +90,7 @@ const AddClient = () => {
     payment_deadline: Joi.string().label("Payment Deadline"),
     billing_deadline: Joi.string().label("Billing Deadline"),
     termination_date: Joi.string().label("Termination Date"),
-    
+
     agent: Joi.string().label("Agent"),
     zone: Joi.string().required().label("Zone"),
     box: Joi.string().label("Box"),
@@ -116,19 +116,19 @@ const AddClient = () => {
     if (validateSubmit(e)) {
       const obj = { ...data };
 
-      Object.keys(obj).forEach(key => {
+      Object.keys(obj).forEach((key) => {
         if (obj[key] === undefined || obj[key] === "") {
           delete obj[key];
         }
       });
 
-      const formData = new FormData()
+      const formData = new FormData();
       Object.keys(obj).forEach((key) => {
-        formData.append(key, obj[key])
-      })
-      formData.append('profile', profile);
-      formData.append('nid_front', nidFront);
-      formData.append('nid_back', nidBack);
+        formData.append(key, obj[key]);
+      });
+      formData.append("profile", profile);
+      formData.append("nid_front", nidFront);
+      formData.append("nid_back", nidBack);
       if (edit) {
         dispatch(updateClient(client._id, formData));
       } else {
@@ -145,12 +145,86 @@ const AddClient = () => {
   };
 
   return (
-    <div className="m-3 p-3 border rounded shadow-sm bg-gray-50">
-      <h2 className="text-center text-2xl font-bold text-gray-900">
+    <div className="p-3 border shadow-sm bg-gray-50 mb-12">
+      <h5 className="text-lg font-bold text-gray-900 bg-blue-50 px-4 py-2">
         Client Form
-      </h2>
+      </h5>
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 border p-3 rounded-lg">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-4 border p-3 rounded-md bg-white">
+          <div>
+          {profile && (
+              <span>
+                Profile Image
+                <img
+                  className="max-h-80 max-w-full"
+                  src={URL.createObjectURL(profile)}
+                  alt="Profile"
+                ></img>{" "}
+              </span>
+            )}
+            <label
+              htmlFor="profile"
+              className="block text-xs md:text-sm font-medium text-gray-600"
+            >
+              Profile
+            </label>
+            <input
+              id="profile"
+              type="file"
+              className="block w-full px-2 md:px-4 py-1 md:py-1.5 text-sm md:text-lg text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
+              onChange={(e) => setProfile(e.target.files[0])}
+            />
+          </div>
+          <div>
+            {nidFront && (
+              <span>
+                NID Front Page{" "}
+                <img
+                  className="max-h-80 max-w-full"
+                  src={URL.createObjectURL(nidFront)}
+                  alt="NID Front"
+                ></img>{" "}
+              </span>
+            )}
+            <label
+              htmlFor="nidFront"
+              className="block text-xs md:text-sm font-medium text-gray-600"
+            >
+              NID Front
+            </label>
+            <input
+              id="nidFront"
+              type="file"
+              className="block w-full px-2 md:px-4 py-1 md:py-1.5 text-sm md:text-lg text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
+              onChange={(e) => setNidFront(e.target.files[0])}
+            />
+          </div>
+          <div>
+            {nidBack && (
+              <span>
+                NID Back Page{" "}
+                <img
+                  className="max-h-80 max-w-full"
+                  src={URL.createObjectURL(nidBack)}
+                  alt="NID Back"
+                ></img>{" "}
+              </span>
+            )}
+            <label
+              htmlFor="nidBack"
+              className="block text-xs md:text-sm font-medium text-gray-600"
+            >
+              NID Back
+            </label>
+            <input
+              id="nidBack"
+              type="file"
+              className="block w-full px-2 md:px-4 py-1 md:py-1.5 text-sm md:text-lg text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
+              onChange={(e) => setNidBack(e.target.files[0])}
+            />
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 border p-3 mt-3 rounded-md bg-white">
           <h3 className="md:col-span-2 text-xl font-bold text-center">
             Client info
           </h3>
@@ -168,7 +242,7 @@ const AddClient = () => {
           {renderInput("client_occupation", "Occupation*")}
           {renderInput("client_username", "Username*")}
           {renderInput("client_password", "Password")}
-          
+
           {renderInput("client_house_no", "House No.")}
           {renderInput("client_flat_no", "Flat No.")}
           {renderInput("client_road_no", "Road No")}
@@ -192,7 +266,7 @@ const AddClient = () => {
             )}
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 border p-3 mt-3 rounded-lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 border p-3 mt-3 rounded-md bg-white">
           <h3 className="md:col-span-2 text-xl font-bold text-center">
             Connection
           </h3>
@@ -207,8 +281,10 @@ const AddClient = () => {
           {renderInput("ip_address", "IP Address")}
           {renderInput("mac_address", "MAC Address")}
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 border p-3 mt-3 rounded-lg">
-          <h3 className="md:col-span-2 text-xl font-bold text-center">Finance </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 border p-3 mt-3 rounded-md bg-white">
+          <h3 className="md:col-span-2 text-xl font-bold text-center">
+            Finance{" "}
+          </h3>
           {renderInput("signup_fee", "Signup Fee", "number")}
           {renderInput("discount", "Discount", "number")}
           {renderInput("payment_deadline", "Payment Deadline", "number")}
@@ -216,8 +292,10 @@ const AddClient = () => {
           {renderInput("termination_date", "Termination Date", "number")}
           {renderInput("payment_method", "Payment Method")}
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 border p-3 mt-3 rounded-lg">
-          <h3 className="md:col-span-2 text-xl font-bold text-center">Admin </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 border p-3 mt-3 rounded-md bg-white">
+          <h3 className="md:col-span-2 text-xl font-bold text-center">
+            Admin{" "}
+          </h3>
           {renderInput("agent", "Agent")}
           {renderInput("zone", "Zone Name*")}
           {renderInput("box", "Box Name")}
@@ -225,28 +303,13 @@ const AddClient = () => {
           {renderInput("bill_collector", "Bill Collector")}
           {renderInput("technician", "Technician")}
         </div>
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-x-3'>
-          <div>
-            <label htmlFor="profile" className="block text-xs md:text-sm font-medium text-gray-600">Profile</label>
-            <input id="profile" type="file" className="block w-full px-2 md:px-4 py-1 md:py-1.5 text-sm md:text-lg text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring" onChange={(e) => setProfile(e.target.files[0])} />
-            {profile && <span>Profile Image<img className="max-h-80 max-w-full" src={URL.createObjectURL(profile)} alt="Profile" ></img> </span>}
-          </div>
-          <div>
-            <label htmlFor="nidFront" className="block text-xs md:text-sm font-medium text-gray-600">NID Front</label>
-            <input id="nidFront" type="file" className="block w-full px-2 md:px-4 py-1 md:py-1.5 text-sm md:text-lg text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring" onChange={(e) => setNidFront(e.target.files[0])} />
-            {nidFront && <span>NID Front Page <img className="max-h-80 max-w-full" src={URL.createObjectURL(nidFront)} alt="NID Front"></img> </span>}
-          </div>
-          <div>
-            <label htmlFor="nidBack" className="block text-xs md:text-sm font-medium text-gray-600">NID Back</label>
-            <input id="nidBack" type="file" className="block w-full px-2 md:px-4 py-1 md:py-1.5 text-sm md:text-lg text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring" onChange={(e) => setNidBack(e.target.files[0])} />
-            {nidBack && <span>NID Back Page <img className="max-h-80 max-w-full" src={URL.createObjectURL(nidBack)} alt="NID Back"></img> </span>}
-          </div>          
-        </div>
         <div className="flex flex-row-reverse mt-4">
           {renderButton("Save", "", "ml-2", false)}
           <Button label="Clear" btnBase="danger" onClick={onClear} />
         </div>
-        <span className="text-base md:text-lg font-medium text-red-500">{error}</span>
+        <span className="text-base md:text-lg font-medium text-red-500">
+          {error}
+        </span>
       </form>
     </div>
   );
