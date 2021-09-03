@@ -6,12 +6,8 @@ import AddClient from './add'
 import SubNavbar from '../../components/subNavbar';
 
 const menus = [
-    { path: "/dashboard/clients", icon: "view-list", label: "List" },
-    {
-        path: "/dashboard/clients/add",
-        icon: "user-add",
-        label: "New",
-    }
+    { path: "/dashboard/clients/add", icon: "plus", label: "Add", },
+    { path: "/dashboard/clients", icon: "view-list", label: "List" }
   ];
 
 const ClinetRoutes = () => {

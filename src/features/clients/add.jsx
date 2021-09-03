@@ -146,8 +146,8 @@ const AddClient = () => {
 
   return (
     <div className="m-3 p-3 border rounded shadow-sm bg-gray-50">
-      <h2 className="text-center text-2xl font-bold text-gray-900">
-        Client Form
+      <h2 className="text-2xl font-bold text-gray-900">
+        Add Client
       </h2>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 border p-3 rounded-lg">

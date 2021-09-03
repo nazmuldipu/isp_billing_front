@@ -2,7 +2,7 @@ import React from "react";
 
 const TextArea = ({ name, label, error, ...rest }) => {
   return (
-    <div className="mt-2 md:mt-4">
+    <div className="mt-1">
       <label className="block text-xs md:text-sm font-medium text-gray-600" htmlFor={name}>
         {label}
       </label>
