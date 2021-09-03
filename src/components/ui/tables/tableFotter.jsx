@@ -35,7 +35,7 @@ const TableFotter = ({ data, columns }) => {
     <tfoot>
       <tr>
         <td colSpan={columns.length}>
-          <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+          <div className="bg-white px-4 py-1 flex items-center justify-between border-t border-gray-200 sm:px-6">
             <div className="grid grid-cols-2 sm:hidden">
               <span
                 onClick={() => handlePageChange(data.prevPage)}
@@ -61,14 +61,14 @@ const TableFotter = ({ data, columns }) => {
                 <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
                   {data.prevPage && <><span
                     onClick={() => handlePageChange(1)}
-                    className="cursor-pointer relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                    className="h-7 cursor-pointer relative inline-flex items-center px-1 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                   >
                     <span className="sr-only">Previous</span>
                     <ChevronDoubleLeftIcon className="h-5 w-5" aria-hidden="true" />
                   </span>
                     <span
                       onClick={() => handlePageChange(data.prevPage)}
-                      className="cursor-pointer relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                      className="h-7 cursor-pointer relative inline-flex items-center px-1 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                     >
                       <span className="sr-only">Previous</span>
                       <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
@@ -81,7 +81,7 @@ const TableFotter = ({ data, columns }) => {
                       key={p}
                       onClick={() => handlePageChange(p)}
                       aria-current="page"
-                      className={`cursor-pointer ${data.page === p ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600 ' : 'bg-white border-gray-300 text-gray-500'} relative inline-flex items-center px-4 py-2 border text-sm font-medium `}
+                      className={`cursor-pointer ${data.page === p ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600 ' : 'bg-white border-gray-300 text-gray-500'} h-7 relative inline-flex items-center px-2 border text-xs font-semibold `}
                     >
                       {p}
                     </span>
@@ -89,25 +89,25 @@ const TableFotter = ({ data, columns }) => {
 
                   {data.nextPage && <> <span
                     onClick={() => handlePageChange(data.nextPage)}
-                    className="cursor-pointer relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                    className="h-7 cursor-pointer relative inline-flex items-center px-1 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                   >
                     <span className="sr-only">Next</span>
                     <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                   </span>
                     <span
                       onClick={() => handlePageChange(data.totalPages)}
-                      className="cursor-pointer relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                      className="h-7 cursor-pointer relative inline-flex items-center px-1 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                     >
                       <span className="sr-only">Next</span>
                       <ChevronDoubleRightIcon className="h-5 w-5" aria-hidden="true" />
                     </span></>}
 
 
-                  <span className="text-gray-500 hidden md:inline-flex relative items-center pl-8 pr-1 py-2 text-sm font-medium">Pages</span>
+                  <span className="text-gray-500 hidden md:inline-flex relative items-center pl-8 pr-1 text-sm font-medium">Pages</span>
 
                   <select
                     onChange={handleLimitChange}
-                    className="text-gray-500 rounded-md hover:bg-gray-50 hidden md:inline-flex relative items-center px-2 py-2 border text-sm font-medium"
+                    className="h-7 text-gray-500 rounded-md hover:bg-gray-50 hidden md:inline-flex relative items-center px-2 border text-sm font-medium"
                     aria-label="Page limit"
                   >
                     <option value="8">8</option>
