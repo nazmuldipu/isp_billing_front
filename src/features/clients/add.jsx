@@ -4,6 +4,7 @@ import useForm from "../../components/ui/forms/useForm";
 import Button from "../../components/ui/forms/button";
 import { saveClient, updateClient } from "./clientSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const client_types = [
   { _id: "home", name: "Home" },
@@ -42,6 +43,7 @@ const connection_packages = [
 ];
 
 const AddClient = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const error = useSelector((state) => state.entities.clients.error);
   const [nidFront, setNidFront] = React.useState();
@@ -87,9 +89,9 @@ const AddClient = () => {
     discount: Joi.number().label("Discount"),
     extra: Joi.number().label("Extra"),
     payment_method: Joi.string().required().label("Payment Method"),
-    payment_deadline: Joi.string().label("Payment Deadline"),
-    billing_deadline: Joi.string().label("Billing Deadline"),
-    termination_date: Joi.string().label("Termination Date"),
+    payment_deadline: Joi.number().label("Payment Deadline"),
+    billing_deadline: Joi.number().label("Billing Deadline"),
+    termination_date: Joi.number().label("Termination Date"),
 
     agent: Joi.string().label("Agent"),
     zone: Joi.string().required().label("Zone"),
@@ -101,16 +103,7 @@ const AddClient = () => {
     note: Joi.string().label("Note"),
   };
 
-  const {
-    data,
-    renderInput,
-    renderSelect,
-    renderTextArea,
-    renderButton,
-    validateSubmit,
-  } = useForm({
-    schema,
-  });
+  const { data, renderInput, renderSelect, renderTextArea, renderButton, validateSubmit, } = useForm({ schema, });
 
   const handleSubmit = (e) => {
     if (validateSubmit(e)) {
@@ -134,7 +127,8 @@ const AddClient = () => {
       } else {
         dispatch(saveClient(formData));
       }
-      setClient({});
+      onClear();
+      history.push(`/dashboard/clients`);
       // onSubmit(obj);
     }
   };
@@ -171,7 +165,7 @@ const AddClient = () => {
             <input
               id="profile"
               type="file"
-              className="block w-full px-2 md:px-4 py-1 md:py-1.5 text-sm md:text-lg text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
+              className="block w-full px-2 md:px-4 py-1 text-xs md:text-sm text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
               onChange={(e) => setProfile(e.target.files[0])}
             />
           </div>
@@ -195,7 +189,7 @@ const AddClient = () => {
             <input
               id="nidFront"
               type="file"
-              className="block w-full px-2 md:px-4 py-1 md:py-1.5 text-sm md:text-lg text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
+              className="block w-full px-2 md:px-4 py-1 text-xs md:text-sm text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
               onChange={(e) => setNidFront(e.target.files[0])}
             />
           </div>
@@ -219,7 +213,7 @@ const AddClient = () => {
             <input
               id="nidBack"
               type="file"
-              className="block w-full px-2 md:px-4 py-1 md:py-1.5 text-sm md:text-lg text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
+              className="block w-full px-2 md:px-4 py-1 text-xs md:text-sm text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring"
               onChange={(e) => setNidBack(e.target.files[0])}
             />
           </div>
@@ -290,7 +284,7 @@ const AddClient = () => {
           {renderInput("payment_deadline", "Payment Deadline", "number")}
           {renderInput("billing_deadline", "Billing Deadline", "number")}
           {renderInput("termination_date", "Termination Date", "number")}
-          {renderInput("payment_method", "Payment Method")}
+          {renderInput("payment_method", "Payment Method *")}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 border p-3 mt-3 rounded-md bg-white">
           <h3 className="md:col-span-2 text-xl font-bold text-center">

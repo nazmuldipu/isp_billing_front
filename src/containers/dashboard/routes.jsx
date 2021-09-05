@@ -64,7 +64,7 @@ const DashboardRouter = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-200 font-roboto">
+    <div className="flex h-screen bg-gray-200 font-roboto text-sm">
       {/* Side navbar */}
       <div className="flex">
         <div
@@ -172,6 +172,7 @@ const DashboardRouter = () => {
                   >
                     <span className="p-1">
                       <Icon
+                        className="w-5 h-5"
                         name={menu.icon}
                         stroke={location.pathname === menu.path ? "#4f46e5" : "#6b7280"}
                       />
