@@ -139,14 +139,16 @@ const AddClient = () => {
   };
 
   return (
-    <div className="m-3 p-3 border rounded shadow-sm bg-gray-50">
-      <h2 className="text-2xl font-bold text-gray-900">
-        Add Client
-      </h2>
+    <div className="p-3 bg-gray-50">
+      <div className="grid grid-cols-1 md:grid-cols-2 bg-blue-50 px-4">
+        <h2 className="text-lg font-bold text-gray-900 align-middle py-2">
+          Add Client
+        </h2>
+      </div>
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-4 border p-3 rounded-md bg-white">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-4 border p-3 mt-3 rounded-md bg-white">
           <div>
-          {profile && (
+            {profile && (
               <span>
                 Profile Image
                 <img

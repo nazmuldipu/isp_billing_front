@@ -6,8 +6,10 @@ import Button from "../../components/ui/forms/button";
 
 const PackageForm = ({ packages, onSubmit, onClear, error }) => {
   const schema = {
-    serial: Joi.number().required().label("Serial"),
     name: Joi.string().required().label("Name"),
+    code: Joi.string().required().label("Name"),
+    volume: Joi.string().required().label("Name"),
+    price: Joi.number().required().label("Price"),
   };
 
   const { data, initForm, renderInput, renderButton, validateSubmit } = useForm(
@@ -36,8 +38,10 @@ const PackageForm = ({ packages, onSubmit, onClear, error }) => {
 
       <span className="text-base md:text-lg font-medium text-red-500">{error}</span>
       <form onSubmit={handleSubmit}>
-        {renderInput("serial", "Serial*", "number")}
         {renderInput("name", "Name*")}
+        {renderInput("code", "Code*")}
+        {renderInput("volume", "Volume*")}
+        {renderInput("price", "Price*", "number")}
 
         <div className="flex flex-row-reverse mt-4">
           {renderButton("Save", "", "ml-2", false)}

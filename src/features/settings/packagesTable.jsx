@@ -4,7 +4,9 @@ import Table from "../../components/ui/tables/table";
 const PackagesTable = ({ packagesPage, select }) => {
     const columns = [
         { path: "name", label: "Name", className:"pl-4" },
-        { path: "serial", label: "Serial", className:"text-center" },
+        { path: "code", label: "Code", className:"text-center" },
+        { path: "volume", label: "Volume", className:"text-center" },
+        { path: "price", label: "Price", className:"text-center" },
         {
           key: "Select",
           className: "text-right pr-4",
